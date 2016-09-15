@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link rel="stylesheet" href="css/motion.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<!-- element to move -->
+<!--<div class="elem" id="js-elem">SWGR</div>-->
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">eLert AMS</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active" id="Name"><a href="#">SWGR</a></li>
+            <li><a href="#">Gen</a></li>
+            <li><a href="#">ATS</a></li>
+            <li><a href="#">UPS</a></li>
+        </ul>
+    </div>
+</nav>
+
+<script src="js/mo.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+
+
+    window.onload = function() {
+
+        function update() {
+            const burst = new mojs.Burst({
+                left: 0, top: 5,
+                degree:   180,
+                angle:    90,
+                radius:   { 15: 30 },
+                count:    5,
+                children: {
+                    shape:        'line',
+                    radius:       7,
+                    radiusY:      0,
+                    scale:        1,
+                    strokeDasharray: '100%',
+                    strokeDashoffset: { '-100%' : '100%' },
+                    stroke:       'red' ,
+                    easing:       'linear.none',
+                    duration:     600
+                }
+            });
+
+
+            return burst;
+        }
+
+        /**
+         * Initial function to update the data for the element
+         */
+     setInterval(function(e){ var test = update();
+
+         //get the positon of my dom elem
+         var dom = $('#Name');
+         var position =dom.offset(),
+                 config = {};
+                 config.offsetH = dom.height()/2;
+                 config.offsetW = dom.width()/2;
+         var finalPosLeft = (position.left + dom.width()/2);
+         var finalPosTop = (position.top + dom.height())/2;
+//         console.log(finalPosLeft);
+//         console.log(finalPosTop);
+
+             test.tune({x:finalPosLeft, y:finalPosTop})
+                     .replay();
+
+
+
+
+//         //returned a reference to the burst cunstructer and now able to alarm
+//         //make the position of my burst on the dom elem
+//         test.tune({ x: 0, y: 0 })
+//                 .setSpeed(3)
+//                 .replay();
+
+     }, 3000);
+
+    }
+
+</script>
+</body>
+</html>
